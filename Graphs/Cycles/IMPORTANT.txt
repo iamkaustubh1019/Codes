@@ -1,0 +1,10 @@
+/*An important point :
+
+Given a graph having both directed and undirected edges how can we make this undirected edges directed such that the graph remains acyclic?
+
+
+
+Ans: This is a easy task if we have a prior knowledge of topological sorting . Since topological sorting can only be done using acyclic graph , we will consider only only that edges that are directed to get the topological order. Now we will direct every edge from the list of undirected edges such that first vertex of that edge will be above in topological sense. 
+
+
+*/
