@@ -13,19 +13,32 @@ typedef struct TreeNode {
 typedef vector<TreeNode *> TreeVector;
 
 TreeVector findPath(TreeNode *node,int target,TreeVector treeVector){
+    
+    if(node==NULL)
+    return treeVector;
+
     if(node->val == target){
         treeVector.push_back(node);
         return treeVector;
     }
 
-    treeVector.push_back(node);
-    treeVector = findPath(node->left,target,treeVector);
-    if(treeVector.back()->val == target)
-    return treeVector;
-    treeVector = findPath(node->right,target,treeVector);
-    if(treeVector.back()->val == target)
+    if(node->left==NULL && node->right==NULL)
     return treeVector;
 
+    TreeVector newTreeVectorLeft;
+    TreeVector newTreeVectorRight;
+    treeVector.push_back(node);
+
+    if(node->left!=NULL){
+        newTreeVectorLeft = findPath(node->left,target,treeVector);
+        if(newTreeVectorLeft.back()->val == target)
+        return newTreeVectorLeft;
+    }
+    if(node->right!=NULL){
+        newTreeVectorRight = findPath(node->right,target,treeVector);
+        if(newTreeVectorRight.back()->val == target)
+        return newTreeVectorRight;
+    }
     return treeVector;
 }
 void printInorder(TreeNode* root){
@@ -46,8 +59,11 @@ int32_t main(){
     root->left->left->right = new TreeNode(6);
     root->left->left->left = new TreeNode(7);
     TreeVector treeVector;
-    treeVector = findPath(root,7,treeVector);
+    int a;
+    cin>>a;
+    treeVector = findPath(root,a,treeVector);
     int size = treeVector.size();
+    cout<<size<<" ";
     for(int i=0;i<size/2;i++){
         swap(treeVector[i]->val,treeVector[size-1-i]->val);
     }
